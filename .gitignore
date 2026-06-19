@@ -1,0 +1,24 @@
+# Certificados (ignorar arquivos sensíveis, manter pasta via .keep)
+web-server/certs/*
+!web-server/certs/.keep
+
+# Arquivos de Ambiente
+.env
+.env.*
+!.env.example
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
+
+# IDEs e Sistema Operacional
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários
+*.tmp
+*.temp

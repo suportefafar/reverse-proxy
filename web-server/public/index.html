@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manutenção - Faculdade de Farmácia UFMG</title>
+    
+    <!-- Design System -->
+    <link rel="stylesheet" href="https://design-system.farmacia.ufmg.br/dist/latest/farmacia-ds.min.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => lucide.createIcons());
+    </script>
+    
+    <style>
+        /* Specific out-of-service page styles for layout and wow-effect */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Ambient background glow (Rich Aesthetics) */
+        .ambient-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            z-index: -1;
+            background: var(--color-gray-50);
+        }
+
+        .ffds-dark .ambient-bg {
+            background: radial-gradient(circle at top right, var(--color-gray-100), var(--color-gray-50)),
+                        radial-gradient(circle at bottom left, #1e293b, var(--color-gray-50));
+        }
+
+        .blob {
+            position: absolute;
+            width: 50vw;
+            height: 50vw;
+            max-width: 600px;
+            max-height: 600px;
+            filter: blur(120px);
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: float 20s ease-in-out infinite alternate;
+        }
+
+        .ffds-dark .blob {
+            opacity: 0.25;
+        }
+
+        .blob-1 {
+            top: -10%;
+            right: -10%;
+            background: var(--color-primary);
+        }
+
+        .blob-2 {
+            bottom: -10%;
+            left: -10%;
+            background: var(--color-info);
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-5%, 5%) scale(1.1); }
+            100% { transform: translate(5%, -5%) scale(0.9); }
+        }
+
+        /* Card positioning and animations */
+        .maintenance-card {
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            z-index: 1;
+            padding: var(--space-8);
+            text-align: center;
+            animation: fadeIn 0.8s ease-out;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .ffds-dark .maintenance-card {
+            background: rgba(26, 20, 16, 0.6); /* --color-gray-50 with opacity */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-container {
+            margin-bottom: var(--space-6);
+        }
+
+        .logo {
+            width: 140px;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(242, 182, 0, 0.2));
+            animation: pulse 4s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(242, 182, 0, 0.2)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 35px rgba(242, 182, 0, 0.4)); }
+        }
+
+        .status-container {
+            margin-bottom: var(--space-5);
+            display: inline-flex;
+        }
+        
+        .status-dot-blink {
+            animation: blink 1.5s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .ffds-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: 600;
+        }
+
+        .ffds-badge-warning {
+            background: var(--color-warning-bg);
+            color: var(--color-warning);
+            border: 1px solid rgba(242, 182, 0, 0.3);
+        }
+
+        .ffds-dark .ffds-badge-warning {
+            background: rgba(242, 182, 0, 0.15);
+            color: var(--color-primary);
+        }
+
+        h1 {
+            margin-bottom: var(--space-4);
+        }
+        
+        p.description {
+            margin-bottom: var(--space-8);
+        }
+
+        .action-container {
+            margin-bottom: var(--space-8);
+        }
+
+        footer {
+            margin-top: var(--space-6);
+            padding-top: var(--space-6);
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: opacity var(--transition-fast);
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="ffds-root ffds-dark">
+    <!-- Ambient Background -->
+    <div class="ambient-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="ffds-card maintenance-card">
+        <div class="logo-container">
+            <img src="img/logo.png" alt="FAFAR UFMG" class="logo">
+        </div>
+        
+        <div class="status-container">
+            <div class="ffds-badge ffds-badge-warning">
+                <i data-lucide="alert-triangle" class="status-dot-blink"></i>
+                Manutenção em Andamento
+            </div>
+        </div>
+
+        <h1 class="ffds-h2">Sistema Temporariamente Indisponível</h1>
+        
+        <p class="ffds-body-lg description">
+            Estamos trabalhando em melhorias na infraestrutura para oferecer uma experiência melhor. Nossos serviços retornarão em breve. Agradecemos a sua compreensão.
+        </p>
+
+        <div class="action-container">
+            <button class="ffds-btn ffds-btn-lg ffds-btn-primary" onclick="window.location.reload()">
+                <i data-lucide="rotate-cw"></i>
+                Tentar Novamente
+            </button>
+        </div>
+
+        <footer>
+            <p class="ffds-body-sm">
+                &copy; <span id="year"></span> Faculdade de Farmácia - UFMG<br>
+                Suporte Técnico: <a href="mailto:suporte@farmacia.ufmg.br">suporte@farmacia.ufmg.br</a>
+            </p>
+        </footer>
+    </main>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

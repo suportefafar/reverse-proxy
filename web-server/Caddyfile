@@ -1,0 +1,178 @@
+# IP Definitions
+(devClientsIp) {
+    @devClientsIp {
+        # remote_ip 150.164.110.253
+        # remote_ip 179.0.74.126
+        remote_ip 1.1.1.1
+    }
+}
+
+(homolClientsIp) {
+    @homolClientsIp {
+        # IP whitelisting for homologation environments
+        # remote_ip 150.164.110.33
+        # remote_ip 150.164.110.42
+        # remote_ip 150.164.110.52
+        # remote_ip 150.164.111.211
+        # remote_ip 150.164.111.219
+        # remote_ip 150.164.111.121
+        # remote_ip 150.164.111.200
+        # remote_ip 150.164.111.36
+        # remote_ip 150.164.111.60
+        # remote_ip 150.164.111.199
+        # remote_ip 150.164.111.19
+        # remote_ip 150.164.110.88
+        # remote_ip 150.164.110.65
+        remote_ip 150.164.110.3
+    }
+}
+
+# Common TLS configuration
+(tlsConfig) {
+    tls /etc/ssl/certs/farmacia/farmacia.ufmg.br.crt /etc/ssl/certs/farmacia/farmacia.ufmg.br.key
+}
+
+# Maintenance fallback handler
+(maintenance) {
+    handle_errors {
+        root * /srv
+        rewrite * /index.html
+        file_server
+    }
+}
+
+# Common reverse proxy configuration
+(commonProxy) {
+    import maintenance
+    reverse_proxy 10.10.10.2:{args.0} {
+        lb_try_duration 5s
+    }
+}
+
+# Common environment routing
+(envRouting) {
+    import devClientsIp
+    import homolClientsIp
+    import maintenance
+    
+    handle @devClientsIp {
+        reverse_proxy 10.10.10.4:{args.0}
+    }
+    
+    handle @homolClientsIp {
+        reverse_proxy 10.10.10.3:{args.0}
+    }
+}
+
+# Main domain
+farmacia.ufmg.br, www.farmacia.ufmg.br {
+    import tlsConfig
+    import envRouting 8001
+    
+    redir /Intranet https://intranet.farmacia.ufmg.br 301
+    
+    import commonProxy 8001
+}
+
+# Intranet
+intranet.farmacia.ufmg.br {
+    import tlsConfig
+    import envRouting 8002
+    import commonProxy 8002
+}
+
+# Escuta - Antigo c/ WordPress
+escuta.farmacia.ufmg.br {
+    import tlsConfig
+    import envRouting 8003
+    import commonProxy 8003
+}
+
+# Escuta - Novo c/ Rails 8
+nova-escuta.farmacia.ufmg.br {
+    import tlsConfig
+    import envRouting 8008
+    import commonProxy 8008
+}
+
+# Stagemanager
+stagemanager.farmacia.ufmg.br {
+    import tlsConfig
+    import envRouting 8004
+    import maintenance
+
+    # Rota de Proxy para o Backend (/api/*)
+    handle_path /api/* {
+        reverse_proxy http://10.10.10.2:3001
+    }
+
+    import commonProxy 8004
+}
+
+# Laras 2026
+laras2026.farmacia.ufmg.br {
+    import tlsConfig
+    import envRouting 8005
+    import commonProxy 8005
+}
+
+# Design System FAFAR
+design-system.farmacia.ufmg.br {
+    import tlsConfig
+    import envRouting 8006
+    import commonProxy 8006
+}
+
+# ChatRapido
+chatrapido.farmacia.ufmg.br {
+    import tlsConfig
+    import envRouting 8007
+    import commonProxy 8007
+}
+
+# Hermes
+hermes.farmacia.ufmg.br {
+    import tlsConfig
+    import envRouting 8009
+    import commonProxy 8009
+}
+
+# PHPMyAdmin
+phpmyadmin.farmacia.ufmg.br {
+    import tlsConfig
+    import envRouting 8081
+    import commonProxy 8081
+}
+
+# Cloud
+http://cloud.farmacia.ufmg.br {
+    redir https://{host}{uri}
+}
+
+https://cloud.farmacia.ufmg.br {
+    import tlsConfig
+    import maintenance
+    reverse_proxy 10.10.10.5:443
+}
+
+# Signaling
+signaling.farmacia.ufmg.br, signaling.farmacia.ufmg.br:3478 {
+    import tlsConfig
+    import maintenance
+    reverse_proxy 10.10.10.2:8080
+}
+
+# Monitor
+monitor.farmacia.ufmg.br {
+    import tlsConfig
+    import maintenance
+    reverse_proxy 10.10.10.6:9000
+}
+
+
+# Mongo Express
+mongo-express.farmacia.ufmg.br {
+    import tlsConfig
+    import maintenance
+    reverse_proxy 10.10.10.2:8082
+}
