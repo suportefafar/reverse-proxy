@@ -124,7 +124,7 @@ design-system.farmacia.ufmg.br {
 }
 
 # ChatRapido
-chatrapido.farmacia.ufmg.br {
+chatrapido.farmacia.ufmg.br, c.farmacia.ufmg.br {
     import tlsConfig
     import envRouting 8007
     import commonProxy 8007
