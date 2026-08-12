@@ -99,11 +99,6 @@ stagemanager.farmacia.ufmg.br {
     import tlsConfig
     import envRouting 8004
 
-    # Rota de Proxy para o Backend (/api/*)
-    handle_path /api/* {
-        reverse_proxy http://10.10.10.2:3001
-    }
-
     import commonProxy 8004
 }
 
@@ -140,25 +135,6 @@ phpmyadmin.farmacia.ufmg.br {
     import tlsConfig
     import envRouting 8081
     import commonProxy 8081
-}
-
-# Cloud
-cloud.farmacia.ufmg.br {
-    import tlsConfig
-    import maintenance
-    reverse_proxy 10.10.10.5:443 {
-        transport http {
-            tls
-            tls_server_name cloud.farmacia.ufmg.br
-        }
-    }
-}
-
-# Signaling
-signaling.farmacia.ufmg.br, signaling.farmacia.ufmg.br:3478 {
-    import tlsConfig
-    import maintenance
-    reverse_proxy 10.10.10.2:8080
 }
 
 # Monitor

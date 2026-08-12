@@ -3,228 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manutenção - Faculdade de Farmácia UFMG</title>
+    <title>Manutenção - Faculdade de Farmácia - UFMG</title>
+    <meta name="description" content="Página de manutenção da Faculdade de Farmácia da Universidade Federal de Minas Gerais (UFMG).">
     
-    <!-- Design System -->
-    <link rel="stylesheet" href="https://design-system.farmacia.ufmg.br/dist/latest/farmacia-ds.min.css">
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', () => lucide.createIcons());
-    </script>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Specific out-of-service page styles for layout and wow-effect */
+        /* CSS resets & variables */
+        :root {
+            --color-primary: #b1171f;
+            --color-primary-hover: #8c1218;
+            --color-bg-main: #f8fafc;
+            --color-bg-card: #ffffff;
+            --color-text-main: #1e293b;
+            --color-text-muted: #64748b;
+            --color-border: #e2e8f0;
+            --color-warning: #b45309;
+            --color-warning-bg: #fffbeb;
+            --color-warning-border: #fde68a;
+            
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+            --transition: all 0.2s ease-in-out;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
+            font-family: var(--font-family);
+            background-color: var(--color-bg-main);
+            color: var(--color-text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+
+        /* Top Institutional Bar */
+        .institution-header {
+            background-color: #ffffff;
+            border-bottom: 3px solid var(--color-primary);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .institution-header-content {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.075em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        @media (max-width: 600px) {
+            .institution-header-content {
+                flex-direction: column;
+                gap: 0.25rem;
+                text-align: center;
+            }
+        }
+
+        .institution-header-ufmg {
+            color: var(--color-text-main);
+        }
+
+        /* Main Container */
+        .main-container {
+            flex-grow: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            overflow: hidden;
-            position: relative;
+            padding: 3rem 1.5rem;
         }
 
-        /* Ambient background glow (Rich Aesthetics) */
-        .ambient-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            overflow: hidden;
-            z-index: -1;
-            background: var(--color-gray-50);
-        }
-
-        .ffds-dark .ambient-bg {
-            background: radial-gradient(circle at top right, var(--color-gray-100), var(--color-gray-50)),
-                        radial-gradient(circle at bottom left, #1e293b, var(--color-gray-50));
-        }
-
-        .blob {
-            position: absolute;
-            width: 50vw;
-            height: 50vw;
-            max-width: 600px;
-            max-height: 600px;
-            filter: blur(120px);
-            border-radius: 50%;
-            opacity: 0.15;
-            animation: float 20s ease-in-out infinite alternate;
-        }
-
-        .ffds-dark .blob {
-            opacity: 0.25;
-        }
-
-        .blob-1 {
-            top: -10%;
-            right: -10%;
-            background: var(--color-primary);
-        }
-
-        .blob-2 {
-            bottom: -10%;
-            left: -10%;
-            background: var(--color-info);
-            animation-delay: -10s;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-5%, 5%) scale(1.1); }
-            100% { transform: translate(5%, -5%) scale(0.9); }
-        }
-
-        /* Card positioning and animations */
+        /* Maintenance Card */
         .maintenance-card {
-            max-width: 600px;
-            width: 90%;
-            position: relative;
-            z-index: 1;
-            padding: var(--space-8);
+            background-color: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            box-shadow: var(--shadow-card);
+            width: 100%;
+            max-width: 540px;
+            padding: 2.5rem;
             text-align: center;
-            animation: fadeIn 0.8s ease-out;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
         }
 
-        .ffds-dark .maintenance-card {
-            background: rgba(26, 20, 16, 0.6); /* --color-gray-50 with opacity */
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        @media (max-width: 480px) {
+            .maintenance-card {
+                padding: 1.75rem 1.25rem;
+            }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Logo Area */
+        .logo-wrapper {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
         }
 
-        .logo-container {
-            margin-bottom: var(--space-6);
+        .logo-img {
+            max-height: 80px;
+            width: auto;
+            object-fit: contain;
         }
 
-        .logo {
-            width: 140px;
-            height: auto;
-            filter: drop-shadow(0 0 20px rgba(242, 182, 0, 0.2));
-            animation: pulse 4s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(242, 182, 0, 0.2)); }
-            50% { transform: scale(1.05); filter: drop-shadow(0 0 35px rgba(242, 182, 0, 0.4)); }
-        }
-
-        .status-container {
-            margin-bottom: var(--space-5);
-            display: inline-flex;
-        }
-        
-        .status-dot-blink {
-            animation: blink 1.5s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        .ffds-badge {
+        /* Status Badge */
+        .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: var(--space-2);
-            padding: var(--space-2) var(--space-4);
-            border-radius: var(--radius-full);
-            font-size: var(--text-sm);
-            font-weight: 600;
-        }
-
-        .ffds-badge-warning {
-            background: var(--color-warning-bg);
+            gap: 0.5rem;
+            background-color: var(--color-warning-bg);
+            border: 1px solid var(--color-warning-border);
             color: var(--color-warning);
-            border: 1px solid rgba(242, 182, 0, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.825rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-bottom: 1.5rem;
         }
 
-        .ffds-dark .ffds-badge-warning {
-            background: rgba(242, 182, 0, 0.15);
-            color: var(--color-primary);
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--color-primary);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite ease-in-out;
         }
 
-        h1 {
-            margin-bottom: var(--space-4);
-        }
-        
-        p.description {
-            margin-bottom: var(--space-8);
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 0.3; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
         }
 
-        .action-container {
-            margin-bottom: var(--space-8);
+        /* Content Text */
+        .title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text-main);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            line-height: 1.25;
         }
 
-        footer {
-            margin-top: var(--space-6);
-            padding-top: var(--space-6);
-            border-top: 1px solid var(--border-color);
+        .description {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.6;
         }
 
-        footer a {
+        /* Action Buttons */
+        .btn-reload {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: var(--color-primary);
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            max-width: 240px;
+            margin-bottom: 2rem;
+            text-decoration: none;
+            box-shadow: 0 2px 4px rgba(177, 23, 31, 0.15);
+        }
+
+        .btn-reload:hover {
+            background-color: var(--color-primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(177, 23, 31, 0.25);
+        }
+
+        .btn-reload:active {
+            transform: translateY(0);
+        }
+
+        .icon-svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background-color: var(--color-border);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Support Info */
+        .support-info {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        .support-info a {
             color: var(--color-primary);
             text-decoration: none;
-            transition: opacity var(--transition-fast);
+            font-weight: 500;
+            transition: var(--transition);
         }
 
-        footer a:hover {
-            opacity: 0.8;
+        .support-info a:hover {
+            color: var(--color-primary-hover);
             text-decoration: underline;
+        }
+
+        /* Footer */
+        .institution-footer {
+            background-color: #ffffff;
+            border-top: 1px solid var(--color-border);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            line-height: 1.5;
+        }
+
+        .institution-footer-address {
+            margin-top: 0.25rem;
+            font-style: normal;
         }
     </style>
 </head>
-<body class="ffds-root ffds-dark">
-    <!-- Ambient Background -->
-    <div class="ambient-bg">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-    </div>
+<body>
 
-    <!-- Main Content -->
-    <main class="ffds-card maintenance-card">
-        <div class="logo-container">
-            <img src="img/logo.png" alt="FAFAR UFMG" class="logo">
+    <!-- Top Institutional Bar -->
+    <header class="institution-header">
+        <div class="institution-header-content">
+            <span class="institution-header-ufmg">Universidade Federal de Minas Gerais</span>
+            <span>Faculdade de Farmácia</span>
         </div>
-        
-        <div class="status-container">
-            <div class="ffds-badge ffds-badge-warning">
-                <i data-lucide="alert-triangle" class="status-dot-blink"></i>
-                Manutenção em Andamento
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <article class="maintenance-card">
+            <!-- Logo -->
+            <div class="logo-wrapper">
+                <img src="img/logo.png" alt="Logomarca da Faculdade de Farmácia da UFMG" class="logo-img" id="logo-fafar">
             </div>
-        </div>
 
-        <h1 class="ffds-h2">Sistema Temporariamente Indisponível</h1>
-        
-        <p class="ffds-body-lg description">
-            Estamos trabalhando em melhorias na infraestrutura para oferecer uma experiência melhor. Nossos serviços retornarão em breve. Agradecemos a sua compreensão.
-        </p>
+            <!-- Status Badge -->
+            <div class="status-badge" role="status">
+                <span class="status-dot"></span>
+                <span>Manutenção do Sistema</span>
+            </div>
 
-        <div class="action-container">
-            <button class="ffds-btn ffds-btn-lg ffds-btn-primary" onclick="window.location.reload()">
-                <i data-lucide="rotate-cw"></i>
+            <!-- Title & Description -->
+            <h1 class="title">Sistema Temporariamente Indisponível</h1>
+            <p class="description">
+                Estamos realizando atualizações técnicas e melhorias em nossa infraestrutura de servidores. 
+                Nossos serviços e sistemas estarão disponíveis novamente em breve. Agradecemos a compreensão.
+            </p>
+
+            <!-- Action Button -->
+            <button class="btn-reload" id="btn-retry" onclick="window.location.reload()">
+                <svg class="icon-svg" viewBox="0 0 24 24">
+                    <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                </svg>
                 Tentar Novamente
             </button>
-        </div>
 
-        <footer>
-            <p class="ffds-body-sm">
-                &copy; <span id="year"></span> Faculdade de Farmácia - UFMG<br>
-                Suporte Técnico: <a href="mailto:suporte@farmacia.ufmg.br">suporte@farmacia.ufmg.br</a>
-            </p>
-        </footer>
+            <!-- Divider -->
+            <div class="divider"></div>
+
+            <!-- Support Info -->
+            <section class="support-info">
+                <p>Precisa de suporte imediato ou informações?</p>
+                <p>Contate-nos pelo e-mail: <a href="mailto:suporte@farmacia.ufmg.br" id="email-suporte">suporte@farmacia.ufmg.br</a></p>
+            </section>
+        </article>
     </main>
+
+    <!-- Footer -->
+    <footer class="institution-footer">
+        <p>&copy; <span id="year"></span> Faculdade de Farmácia - UFMG. Todos os direitos reservados.</p>
+        <address class="institution-footer-address">
+            Av. Antônio Carlos, 6627 - Campus Pampulha - CEP 31270-901 - Belo Horizonte - MG
+        </address>
+    </footer>
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
