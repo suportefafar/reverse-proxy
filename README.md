@@ -47,8 +47,8 @@ Para garantir a melhor performance e compatibilidade, recomenda-se:
 
 - **Sistema Operacional**: Linux (Ubuntu 22.04 LTS ou Debian 12 preferencialmente).
 - **Rede**:
-  - O Caddy está configurado com `network_mode: "host"` para máxima performance e acesso direto à rede do host.
-  - Certifique-se de que as portas **80** e **443** estejam abertas no firewall.
+  - O Caddy utiliza a rede bridge do Docker, com publicação explícita das portas necessárias.
+  - Certifique-se de que as portas **80**, **443** e **3478** estejam abertas no firewall. As portas HTTPS também são publicadas via UDP para suporte a HTTP/3.
   - A porta **9001** deve estar acessível se desejar utilizar o Portainer Agent.
 - **Recursos**:
   - Mínimo de 1GB de RAM.
