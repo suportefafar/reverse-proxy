@@ -7,6 +7,8 @@ WORKDIR /etc/caddy/
 
 COPY Caddyfile /etc/caddy/Caddyfile
 
+COPY ./tls/ /etc/caddy/tls/
+
 COPY ./certs/ /etc/ssl/certs/farmacia/
 
 COPY ./public/ /srv/

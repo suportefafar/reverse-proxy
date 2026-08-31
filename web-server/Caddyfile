@@ -1,35 +1,6 @@
-# IP Definitions
-(devClientsIp) {
-    @devClientsIp {
-        # remote_ip 150.164.110.253
-        # remote_ip 179.0.74.126
-        remote_ip 1.1.1.1
-    }
-}
-
-(homolClientsIp) {
-    @homolClientsIp {
-        # IP whitelisting for homologation environments
-        # remote_ip 150.164.110.33
-        # remote_ip 150.164.110.42
-        # remote_ip 150.164.110.52
-        # remote_ip 150.164.111.211
-        # remote_ip 150.164.111.219
-        # remote_ip 150.164.111.121
-        # remote_ip 150.164.111.200
-        # remote_ip 150.164.111.36
-        # remote_ip 150.164.111.60
-        # remote_ip 150.164.111.199
-        # remote_ip 150.164.111.19
-        # remote_ip 150.164.110.88
-        # remote_ip 150.164.110.65
-        remote_ip 150.164.110.3
-    }
-}
-
-# Common TLS configuration
+# Environment-specific TLS configuration
 (tlsConfig) {
-    tls /etc/ssl/certs/farmacia/farmacia.ufmg.br.crt /etc/ssl/certs/farmacia/farmacia.ufmg.br.key
+    import /etc/caddy/tls/{$CADDY_ENVIRONMENT:production}.caddy
 }
 
 # Maintenance fallback handler
@@ -44,101 +15,76 @@
 # Common reverse proxy configuration
 (commonProxy) {
     import maintenance
-    reverse_proxy 10.10.10.2:{args[0]} {
+    reverse_proxy {args[0]} {
         lb_try_duration 5s
     }
 }
 
-# Common environment routing
-(envRouting) {
-    import devClientsIp
-    import homolClientsIp
-    
-    handle @devClientsIp {
-        reverse_proxy 10.10.10.4:{args[0]}
-    }
-    
-    handle @homolClientsIp {
-        reverse_proxy 10.10.10.3:{args[0]}
-    }
-}
-
 # Main domain
-farmacia.ufmg.br, www.farmacia.ufmg.br {
+farmacia.{$DOMAIN_SUFFIX:ufmg.br}, www.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
-    import envRouting 8001
-    
-    redir /Intranet https://intranet.farmacia.ufmg.br 301
-    
-    import commonProxy 8001
+
+    redir /Intranet https://intranet.farmacia.{$DOMAIN_SUFFIX:ufmg.br} 301
+
+    import commonProxy institutional-website:80
 }
 
 # Intranet
-intranet.farmacia.ufmg.br {
+intranet.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
-    import envRouting 8002
-    import commonProxy 8002
+    import commonProxy intranet-website:80
 }
 
 # Escuta - Antigo c/ WordPress
-escuta.farmacia.ufmg.br {
+escuta.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
-    import envRouting 8003
-    import commonProxy 8003
+    import commonProxy escuta-website-wp:80
 }
 
 # Escuta - Novo c/ Rails 8
-nova-escuta.farmacia.ufmg.br {
+nova-escuta.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
-    import envRouting 8008
-    import commonProxy 8008
+    import commonProxy escuta-website:80
 }
 
 # Stagemanager
-stagemanager.farmacia.ufmg.br {
+stagemanager.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
-    import envRouting 8004
-
-    import commonProxy 8004
+    import commonProxy stagemanager:80
 }
 
 # Laras 2026
-laras2026.farmacia.ufmg.br {
+laras2026.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
-    import envRouting 8005
-    import commonProxy 8005
+    import commonProxy laras2026-website:80
 }
 
 # Design System FAFAR
-design-system.farmacia.ufmg.br {
+design-system.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
-    import envRouting 8006
-    import commonProxy 8006
+    import commonProxy design-system:80
 }
 
 # ChatRapido
-chatrapido.farmacia.ufmg.br, c.farmacia.ufmg.br {
+chatrapido.farmacia.{$DOMAIN_SUFFIX:ufmg.br}, c.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
-    import envRouting 8007
-    import commonProxy 8007
+    import commonProxy chatrapido:80
 }
 
 # Hermes
-hermes.farmacia.ufmg.br {
+hermes.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
-    import envRouting 8009
-    import commonProxy 8009
+    import commonProxy hermes:80
 }
 
 # PHPMyAdmin
-phpmyadmin.farmacia.ufmg.br {
+phpmyadmin.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
-    import envRouting 8081
-    import commonProxy 8081
+    import commonProxy phpmyadmin:80
 }
 
 # Monitor
-monitor.farmacia.ufmg.br {
+monitor.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
     import maintenance
     reverse_proxy 10.10.10.6:9000
@@ -146,8 +92,7 @@ monitor.farmacia.ufmg.br {
 
 
 # Mongo Express
-mongo-express.farmacia.ufmg.br {
+mongo-express.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
-    import maintenance
-    reverse_proxy 10.10.10.2:8082
+    import commonProxy mongo-express:8081
 }

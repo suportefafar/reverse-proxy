@@ -1,0 +1,1 @@
+tls /etc/ssl/certs/farmacia/farmacia.ufmg.br.crt /etc/ssl/certs/farmacia/farmacia.ufmg.br.key
