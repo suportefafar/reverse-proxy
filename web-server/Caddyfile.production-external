@@ -87,15 +87,14 @@ intranet.farmacia.ufmg.br {
 # Escuta - Antigo c/ WordPress
 escuta.farmacia.ufmg.br {
     import tlsConfig
-    import envRouting 8003
-    import commonProxy 8003
-}
-
-# Escuta - Novo c/ Rails 8
-nova-escuta.farmacia.ufmg.br {
-    import tlsConfig
     import envRouting 8008
     import commonProxy 8008
+}
+
+# Legacy Escuta URL redirects to the current public URL.
+nova-escuta.farmacia.ufmg.br {
+    import tlsConfig
+    redir https://escuta.farmacia.ufmg.br{uri} permanent
 }
 
 # Escuta - Ambiente de demonstração

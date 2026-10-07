@@ -38,13 +38,13 @@ intranet.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
 # Escuta - Antigo c/ WordPress
 escuta.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
-    import commonProxy escuta-website-wp:80
+    import commonProxy escuta-website:80
 }
 
-# Escuta - Novo c/ Rails 8
+# Legacy Escuta URL redirects to the current public URL.
 nova-escuta.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
-    import commonProxy escuta-website:80
+    redir https://escuta.farmacia.{$DOMAIN_SUFFIX:ufmg.br}{uri} permanent
 }
 
 # Escuta - Ambiente de demonstração
@@ -113,4 +113,3 @@ cronos.farmacia.ufmg.br {
         lb_try_duration 5s
     }
 }
-
