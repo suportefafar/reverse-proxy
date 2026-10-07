@@ -47,6 +47,12 @@ nova-escuta.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import commonProxy escuta-website:80
 }
 
+# Escuta - Ambiente de demonstração
+stage-escuta.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
+    import tlsConfig
+    import commonProxy escuta-website-stage:80
+}
+
 # Stagemanager
 stagemanager.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
