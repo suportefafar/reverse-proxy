@@ -45,6 +45,16 @@ O sistema gerencia o roteamento de diversos subdomínios da FAFAR (farmacia.ufmg
 
 ## Infraestrutura Recomendada
 
+### Proxy de produção em host separado
+
+Quando o Caddy roda no host `reverse-proxy.farmacia.ufmg.br`, separado dos
+containers de aplicação em `prod.farmacia.ufmg.br`, use
+`web-server/Caddyfile.production-external`. Esse arquivo encaminha para os
+ports publicados no IP interno `10.10.10.2` (8001, 8002, 8008 e 8010); o
+`web-server/Caddyfile` padrão continua destinado ao proxy na mesma rede Docker
+dos serviços. Mantenha os mapeamentos em `services-infra/compose.prod.yaml`
+sincronizados com essa configuração.
+
 Para garantir a melhor performance e compatibilidade, recomenda-se:
 
 - **Sistema Operacional**: Linux (Ubuntu 22.04 LTS ou Debian 12 preferencialmente).
