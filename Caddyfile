@@ -1,0 +1,61 @@
+# {
+# 	# Disable automatic HTTPS globally
+# 	auto_https off
+# }
+
+farmacia.local,
+www.farmacia.local {
+	tls internal
+	reverse_proxy http://institutional-website:80 # Sim, está correto. Esse é um CaddyFile DEV
+}
+
+intranet.farmacia.local {
+	tls internal
+	reverse_proxy http://intranet-website:80 # Sim, está correto. Esse é um CaddyFile DEV
+}
+
+escuta.farmacia.local {
+	tls internal
+	reverse_proxy http://escuta-website:80 # Sim, está correto. Esse é um CaddyFile DEV
+}
+
+laras2026.farmacia.local {
+	tls internal
+	reverse_proxy http://laras2026-website:80 # Sim, está correto. Esse é um CaddyFile DEV
+}
+
+stagemanager.farmacia.local {
+	tls internal
+
+    # Rota de Proxy para o Backend (/api/*)
+    # A rota deve ser genérica (apenas o domínio) e usar um path matcher
+    @api {
+        path /api/*
+    }
+
+    handle @api {
+        reverse_proxy http://stagemanager-backend:3001
+    }
+    
+	handle {
+    	reverse_proxy http://stagemanager-website:80 # Sim, está correto. Esse é um CaddyFile DEV
+	}
+}
+
+phpmyadmin.farmacia.local {
+	tls internal
+	reverse_proxy http://phpmyadmin:80 # Sim, está correto. Esse é um CaddyFile DEV
+}
+
+mongo-express.farmacia.local {
+	tls internal
+	reverse_proxy http://mongo-express:8081 # Sim, está correto. Esse é um CaddyFile DEV
+}
+
+# Cronos: API de horário no ambiente de desenvolvimento
+cronos.farmacia.local {
+	tls internal
+	@notAllowed not remote_ip 150.164.110.0/24 150.164.111.0/24 192.168.137.0/24
+	respond @notAllowed 403
+	reverse_proxy http://cronos:8080
+}

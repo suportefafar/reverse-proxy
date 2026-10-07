@@ -102,3 +102,15 @@ mongo-express.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
     import commonProxy mongo-express:8081
 }
+
+# Cronos: local time API (NTP uses UDP/123 directly, outside this HTTP proxy)
+cronos.farmacia.ufmg.br {
+    import tlsConfig
+
+    @notAllowed not remote_ip 150.164.110.0/24 150.164.111.0/24 192.168.137.0/24
+    respond @notAllowed 403
+    reverse_proxy cronos:8080 {
+        lb_try_duration 5s
+    }
+}
+
