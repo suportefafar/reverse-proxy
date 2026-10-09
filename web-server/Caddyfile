@@ -59,6 +59,12 @@ stagemanager.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import commonProxy stagemanager:80
 }
 
+# Dike
+dike.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
+    import tlsConfig
+    import commonProxy dike:3002
+}
+
 # Laras 2026
 laras2026.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
