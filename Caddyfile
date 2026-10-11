@@ -14,6 +14,11 @@ intranet.farmacia.local {
 	reverse_proxy http://intranet-website:80 # Sim, está correto. Esse é um CaddyFile DEV
 }
 
+intranet-stage.farmacia.local {
+	tls internal
+	reverse_proxy http://intranet:80
+}
+
 escuta.farmacia.local {
 	tls internal
 	reverse_proxy http://escuta-website:80 # Sim, está correto. Esse é um CaddyFile DEV

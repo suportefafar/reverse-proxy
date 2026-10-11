@@ -35,6 +35,12 @@ intranet.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import commonProxy intranet-website:80
 }
 
+# Intranet Rails - homologation/staging
+intranet-stage.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
+    import tlsConfig
+    import commonProxy intranet:80
+}
+
 # Escuta - Antigo c/ WordPress
 escuta.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
