@@ -84,7 +84,7 @@ intranet.farmacia.ufmg.br {
     import commonProxy 8002
 }
 
-# Escuta - Antigo c/ WordPress
+# Escuta Rails
 escuta.farmacia.ufmg.br {
     import tlsConfig
     import envRouting 8008
