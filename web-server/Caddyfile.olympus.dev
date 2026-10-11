@@ -66,6 +66,9 @@ https://chatrapido.farmacia.local {
 }
 
 http://nodus.farmacia.local {
+    handle_path /__design-system/* {
+        reverse_proxy design-system:80
+    }
     handle /api/* {
         reverse_proxy nodus-api:3000
     }
@@ -79,6 +82,9 @@ http://nodus.farmacia.local {
 
 https://nodus.farmacia.local {
     import devTls
+    handle_path /__design-system/* {
+        reverse_proxy design-system:80
+    }
     handle /api/* {
         reverse_proxy nodus-api:3000
     }
@@ -91,12 +97,22 @@ https://nodus.farmacia.local {
 }
 
 http://ciclum.farmacia.local {
-    reverse_proxy ciclum:3000
+    handle_path /__design-system/* {
+        reverse_proxy design-system:80
+    }
+    handle {
+        reverse_proxy ciclum:3000
+    }
 }
 
 https://ciclum.farmacia.local {
     import devTls
-    reverse_proxy ciclum:3000
+    handle_path /__design-system/* {
+        reverse_proxy design-system:80
+    }
+    handle {
+        reverse_proxy ciclum:3000
+    }
 }
 
 http://stagemanager.farmacia.local {

@@ -83,6 +83,9 @@ nodus.farmacia.ufmg.br {
     handle /api* {
         reverse_proxy nodus-api:3000
     }
+    handle_path /__design-system/* {
+        reverse_proxy design-system:80
+    }
     handle {
         reverse_proxy nodus-client:80
     }
@@ -92,7 +95,12 @@ ciclum.farmacia.ufmg.br {
     import tlsConfig
     import securityHeaders
     import siteLogs ciclum
-    reverse_proxy ciclum:80
+    handle_path /__design-system/* {
+        reverse_proxy design-system:80
+    }
+    handle {
+        reverse_proxy ciclum:80
+    }
 }
 
 chatrapido.farmacia.ufmg.br, c.farmacia.ufmg.br {
