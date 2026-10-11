@@ -76,6 +76,25 @@ design-system.farmacia.ufmg.br {
     reverse_proxy design-system:80
 }
 
+nodus.farmacia.ufmg.br {
+    import tlsConfig
+    import securityHeaders
+    import siteLogs nodus
+    handle /api* {
+        reverse_proxy nodus-api:3000
+    }
+    handle {
+        reverse_proxy nodus-client:80
+    }
+}
+
+ciclum.farmacia.ufmg.br {
+    import tlsConfig
+    import securityHeaders
+    import siteLogs ciclum
+    reverse_proxy ciclum:80
+}
+
 chatrapido.farmacia.ufmg.br, c.farmacia.ufmg.br {
     import tlsConfig
     import securityHeaders
