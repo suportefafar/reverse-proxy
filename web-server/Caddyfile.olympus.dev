@@ -38,15 +38,6 @@ https://escuta.farmacia.local, https://nova-escuta.farmacia.local {
     reverse_proxy escuta-website:80
 }
 
-http://escuta-wp.farmacia.local {
-    reverse_proxy escuta-website-wp:80
-}
-
-https://escuta-wp.farmacia.local {
-    import devTls
-    reverse_proxy escuta-website-wp:80
-}
-
 http://hermes.farmacia.local {
     reverse_proxy hermes:80
 }

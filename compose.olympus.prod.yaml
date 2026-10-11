@@ -6,7 +6,6 @@ services:
     depends_on:
       - institutional-website
       - intranet-website
-      - escuta-website-wp
       - design-system
     volumes:
       - ${REVERSE_PROXY_DIR:?olymctl must set REVERSE_PROXY_DIR}/web-server/Caddyfile.olympus.prod:/etc/caddy/Caddyfile:ro

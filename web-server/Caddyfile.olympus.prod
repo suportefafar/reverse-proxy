@@ -46,13 +46,6 @@ escuta.farmacia.ufmg.br {
     reverse_proxy escuta-website:80
 }
 
-escuta-wp.farmacia.ufmg.br {
-    import tlsConfig
-    import securityHeaders
-    import siteLogs escuta-wp
-    reverse_proxy escuta-website-wp:80
-}
-
 stagemanager.farmacia.ufmg.br {
     import tlsConfig
     import securityHeaders
