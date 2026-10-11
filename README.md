@@ -43,6 +43,22 @@ O sistema gerencia o roteamento de diversos subdomínios da FAFAR (farmacia.ufmg
    docker compose up -d --build
    ```
 
+### Integração com Olympus
+
+No workspace do Olympus, o `olymctl` inclui `compose.olympus.yaml` e o overlay
+do ambiente a partir deste repositório. Assim, a definição do container Caddy,
+os arquivos de rota, os certificados e os volumes do proxy permanecem aqui;
+Olympus apenas coordena a inicialização dos serviços no mesmo projeto Compose
+e na rede compartilhada `edge`. A preparação de `/etc/hosts` para os domínios
+`.farmacia.local` continua no Olympus, pois faz parte da preparação do ambiente
+de desenvolvimento.
+
+As configurações de rota usadas pelo Olympus são
+`web-server/Caddyfile.olympus.dev` e `web-server/Caddyfile.olympus.prod`.
+Configure `TLS_CERTS_PATH` em `reverse-proxy/.env` para apontar ao diretório de
+certificados de produção. O `.env.example` usa o caminho padrão
+`/var/reverse-proxy/web-server/certs`.
+
 ## Infraestrutura Recomendada
 
 ### Proxy de produção em host separado

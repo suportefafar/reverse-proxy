@@ -1,318 +1,204 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manutenção - Faculdade de Farmácia - UFMG</title>
-    <meta name="description" content="Página de manutenção da Faculdade de Farmácia da Universidade Federal de Minas Gerais (UFMG).">
-    
-    <!-- Google Fonts - Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* CSS resets & variables */
-        :root {
-            --color-primary: #b1171f;
-            --color-primary-hover: #8c1218;
-            --color-bg-main: #f8fafc;
-            --color-bg-card: #ffffff;
-            --color-text-main: #1e293b;
-            --color-text-muted: #64748b;
-            --color-border: #e2e8f0;
-            --color-warning: #b45309;
-            --color-warning-bg: #fffbeb;
-            --color-warning-border: #fde68a;
-            
-            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.08);
-            --transition: all 0.2s ease-in-out;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Página de manutenção da Faculdade de Farmácia da Universidade Federal de Minas Gerais (UFMG).">
+  <title>Manutenção — Faculdade de Farmácia — UFMG</title>
+  <script>
+    const designSystemHost = location.hostname.endsWith('.local')
+      ? 'design-system.farmacia.local'
+      : 'design-system.farmacia.ufmg.br';
+    const designSystemCss = document.createElement('link');
+    designSystemCss.rel = 'stylesheet';
+    designSystemCss.href = `${location.protocol}//${designSystemHost}/dist/latest/farmacia-ds.min.css`;
+    document.head.appendChild(designSystemCss);
+  </script>
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--color-gray-50);
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    .institution-header {
+      padding: var(--space-4) var(--space-6);
+      background: var(--color-white);
+      border-bottom: 3px solid var(--color-primary);
+    }
 
-        body {
-            font-family: var(--font-family);
-            background-color: var(--color-bg-main);
-            color: var(--color-text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            line-height: 1.5;
-        }
+    .institution-header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+      max-width: 75rem;
+      margin: 0 auto;
+      color: var(--color-gray-600);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
 
-        /* Top Institutional Bar */
-        .institution-header {
-            background-color: #ffffff;
-            border-bottom: 3px solid var(--color-primary);
-            padding: 0.75rem 1.5rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        }
+    .institution-header-ufmg {
+      color: var(--color-gray-800);
+    }
 
-        .institution-header-content {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.075em;
-            text-transform: uppercase;
-            color: var(--color-text-muted);
-        }
+    .main-container {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: var(--space-12) var(--space-6);
+    }
 
-        @media (max-width: 600px) {
-            .institution-header-content {
-                flex-direction: column;
-                gap: 0.25rem;
-                text-align: center;
-            }
-        }
+    .maintenance-card {
+      width: min(100%, 38rem);
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
 
-        .institution-header-ufmg {
-            color: var(--color-text-main);
-        }
+    .maintenance-card-body {
+      padding: clamp(var(--space-6), 7vw, var(--space-12));
+    }
 
-        /* Main Container */
-        .main-container {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem 1.5rem;
-        }
+    .logo-wrapper {
+      margin-bottom: var(--space-8);
+    }
 
-        /* Maintenance Card */
-        .maintenance-card {
-            background-color: var(--color-bg-card);
-            border: 1px solid var(--color-border);
-            border-radius: 8px;
-            box-shadow: var(--shadow-card);
-            width: 100%;
-            max-width: 540px;
-            padding: 2.5rem;
-            text-align: center;
-        }
+    .logo-img {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      max-height: 5rem;
+      margin: 0 auto;
+    }
 
-        @media (max-width: 480px) {
-            .maintenance-card {
-                padding: 1.75rem 1.25rem;
-            }
-        }
+    .status-badge {
+      margin-top: 0;
+      margin-bottom: var(--space-5);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
 
-        /* Logo Area */
-        .logo-wrapper {
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: center;
-        }
+    .maintenance-title {
+      margin-bottom: var(--space-4);
+      font-size: clamp(var(--text-2xl), 5vw, var(--text-3xl));
+    }
 
-        .logo-img {
-            max-height: 80px;
-            width: auto;
-            object-fit: contain;
-        }
+    .description {
+      max-width: 32rem;
+      margin: 0 auto var(--space-8);
+      color: var(--color-gray-600);
+    }
 
-        /* Status Badge */
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background-color: var(--color-warning-bg);
-            border: 1px solid var(--color-warning-border);
-            color: var(--color-warning);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-size: 0.825rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            margin-bottom: 1.5rem;
-        }
+    .retry-button {
+      margin-bottom: var(--space-6);
+    }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--color-primary);
-            border-radius: 50%;
-            animation: pulse-dot 2s infinite ease-in-out;
-        }
+    .retry-icon {
+      width: 1rem;
+      height: 1rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
 
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 0.3; transform: scale(0.9); }
-            50% { opacity: 1; transform: scale(1.1); }
-        }
+    .support-info {
+      margin-bottom: 0;
+      color: var(--color-gray-600);
+      font-size: var(--text-sm);
+    }
 
-        /* Content Text */
-        .title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-text-main);
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-            line-height: 1.25;
-        }
+    .support-info p {
+      margin-bottom: var(--space-2);
+    }
 
-        .description {
-            font-size: 0.95rem;
-            color: var(--color-text-muted);
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
+    .support-info p:last-child {
+      margin-bottom: 0;
+    }
 
-        /* Action Buttons */
-        .btn-reload {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            background-color: var(--color-primary);
-            color: #ffffff;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            max-width: 240px;
-            margin-bottom: 2rem;
-            text-decoration: none;
-            box-shadow: 0 2px 4px rgba(177, 23, 31, 0.15);
-        }
+    .institution-footer {
+      padding: var(--space-6) var(--space-4);
+      border-top: 1px solid var(--border-color);
+      background: var(--color-white);
+      color: var(--color-gray-500);
+      text-align: center;
+      font-size: var(--text-sm);
+    }
 
-        .btn-reload:hover {
-            background-color: var(--color-primary-hover);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(177, 23, 31, 0.25);
-        }
+    .institution-footer p {
+      margin-bottom: var(--space-1);
+    }
 
-        .btn-reload:active {
-            transform: translateY(0);
-        }
+    .institution-footer-address {
+      font-style: normal;
+    }
 
-        .icon-svg {
-            width: 16px;
-            height: 16px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
+    @media (max-width: 600px) {
+      .institution-header-content {
+        flex-direction: column;
+        text-align: center;
+      }
 
-        /* Divider */
-        .divider {
-            height: 1px;
-            background-color: var(--color-border);
-            margin-bottom: 1.5rem;
-        }
-
-        /* Support Info */
-        .support-info {
-            font-size: 0.85rem;
-            color: var(--color-text-muted);
-        }
-
-        .support-info a {
-            color: var(--color-primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .support-info a:hover {
-            color: var(--color-primary-hover);
-            text-decoration: underline;
-        }
-
-        /* Footer */
-        .institution-footer {
-            background-color: #ffffff;
-            border-top: 1px solid var(--color-border);
-            padding: 1.5rem 1rem;
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--color-text-muted);
-            line-height: 1.5;
-        }
-
-        .institution-footer-address {
-            margin-top: 0.25rem;
-            font-style: normal;
-        }
-    </style>
+      .main-container {
+        padding: var(--space-8) var(--space-4);
+      }
+    }
+  </style>
 </head>
-<body>
+<body class="ffds-root">
+  <header class="institution-header">
+    <div class="institution-header-content">
+      <span class="institution-header-ufmg">Universidade Federal de Minas Gerais</span>
+      <span>Faculdade de Farmácia</span>
+    </div>
+  </header>
 
-    <!-- Top Institutional Bar -->
-    <header class="institution-header">
-        <div class="institution-header-content">
-            <span class="institution-header-ufmg">Universidade Federal de Minas Gerais</span>
-            <span>Faculdade de Farmácia</span>
+  <main class="main-container">
+    <article class="ffds-card ffds-card-accent maintenance-card">
+      <div class="ffds-card-body maintenance-card-body">
+        <div class="logo-wrapper">
+          <img src="img/logo.png" alt="Logomarca da Faculdade de Farmácia da UFMG" class="logo-img">
         </div>
-    </header>
 
-    <!-- Main Container -->
-    <main class="main-container">
-        <article class="maintenance-card">
-            <!-- Logo -->
-            <div class="logo-wrapper">
-                <img src="img/logo.png" alt="Logomarca da Faculdade de Farmácia da UFMG" class="logo-img" id="logo-fafar">
-            </div>
+        <p class="ffds-badge ffds-badge-warning status-badge" role="status">Manutenção do sistema</p>
+        <h1 class="ffds-h1 maintenance-title">Sistema temporariamente indisponível</h1>
+        <p class="description">
+          Estamos realizando atualizações técnicas e melhorias em nossa infraestrutura de servidores.
+          Nossos serviços e sistemas estarão disponíveis novamente em breve. Agradecemos a compreensão.
+        </p>
 
-            <!-- Status Badge -->
-            <div class="status-badge" role="status">
-                <span class="status-dot"></span>
-                <span>Manutenção do Sistema</span>
-            </div>
+        <button class="ffds-btn ffds-btn-primary ffds-btn-lg retry-button" type="button" onclick="window.location.reload()">
+          <svg class="retry-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 7v5h-5M4 17v-5h5"></path>
+            <path d="M5.6 9a7 7 0 0 1 11.6-2L20 12M4 12l2.8 5a7 7 0 0 0 11.6-2"></path>
+          </svg>
+          Tentar novamente
+        </button>
 
-            <!-- Title & Description -->
-            <h1 class="title">Sistema Temporariamente Indisponível</h1>
-            <p class="description">
-                Estamos realizando atualizações técnicas e melhorias em nossa infraestrutura de servidores. 
-                Nossos serviços e sistemas estarão disponíveis novamente em breve. Agradecemos a compreensão.
-            </p>
+        <hr class="ffds-hr">
+        <section class="support-info" aria-label="Suporte">
+          <p>Precisa de suporte imediato ou informações?</p>
+          <p>Contate-nos pelo e-mail: <a class="ffds-link" href="mailto:suporte@farmacia.ufmg.br">suporte@farmacia.ufmg.br</a></p>
+        </section>
+      </div>
+    </article>
+  </main>
 
-            <!-- Action Button -->
-            <button class="btn-reload" id="btn-retry" onclick="window.location.reload()">
-                <svg class="icon-svg" viewBox="0 0 24 24">
-                    <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
-                </svg>
-                Tentar Novamente
-            </button>
+  <footer class="institution-footer">
+    <p>&copy; <span id="year"></span> Faculdade de Farmácia — UFMG. Todos os direitos reservados.</p>
+    <address class="institution-footer-address">
+      Av. Antônio Carlos, 6627 — Campus Pampulha — CEP 31270-901 — Belo Horizonte — MG
+    </address>
+  </footer>
 
-            <!-- Divider -->
-            <div class="divider"></div>
-
-            <!-- Support Info -->
-            <section class="support-info">
-                <p>Precisa de suporte imediato ou informações?</p>
-                <p>Contate-nos pelo e-mail: <a href="mailto:suporte@farmacia.ufmg.br" id="email-suporte">suporte@farmacia.ufmg.br</a></p>
-            </section>
-        </article>
-    </main>
-
-    <!-- Footer -->
-    <footer class="institution-footer">
-        <p>&copy; <span id="year"></span> Faculdade de Farmácia - UFMG. Todos os direitos reservados.</p>
-        <address class="institution-footer-address">
-            Av. Antônio Carlos, 6627 - Campus Pampulha - CEP 31270-901 - Belo Horizonte - MG
-        </address>
-    </footer>
-
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

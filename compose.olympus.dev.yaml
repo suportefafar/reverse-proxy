@@ -1,0 +1,7 @@
+services:
+  reverse-proxy:
+    environment:
+      CADDY_ENVIRONMENT: development
+      DOMAIN_SUFFIX: local
+    volumes:
+      - ${REVERSE_PROXY_DIR:?olymctl must set REVERSE_PROXY_DIR}/web-server/Caddyfile.olympus.dev:/etc/caddy/Caddyfile:ro
