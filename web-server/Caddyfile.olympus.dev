@@ -30,12 +30,12 @@ https://intranet-stage.farmacia.local {
 }
 
 http://escuta.farmacia.local, http://nova-escuta.farmacia.local {
-    reverse_proxy escuta-website:80
+    reverse_proxy escuta:80
 }
 
 https://escuta.farmacia.local, https://nova-escuta.farmacia.local {
     import devTls
-    reverse_proxy escuta-website:80
+    reverse_proxy escuta:80
 }
 
 http://hermes.farmacia.local {

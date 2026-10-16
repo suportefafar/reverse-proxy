@@ -44,7 +44,7 @@ intranet-stage.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
 # Escuta Rails
 escuta.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
-    import commonProxy escuta-website:80
+    import commonProxy escuta:80
 }
 
 # Legacy Escuta URL redirects to the current public URL.
@@ -56,7 +56,7 @@ nova-escuta.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
 # Escuta - Ambiente de demonstração
 stage-escuta.farmacia.{$DOMAIN_SUFFIX:ufmg.br} {
     import tlsConfig
-    import commonProxy escuta-website-stage:80
+    import commonProxy escuta-stage:80
 }
 
 # Stagemanager

@@ -43,7 +43,7 @@ escuta.farmacia.ufmg.br {
     import tlsConfig
     import securityHeaders
     import siteLogs escuta
-    reverse_proxy escuta-website:80
+    reverse_proxy escuta:80
 }
 
 stagemanager.farmacia.ufmg.br {
