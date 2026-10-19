@@ -107,12 +107,22 @@ https://ciclum.farmacia.local {
 }
 
 http://athenas.farmacia.local {
-    reverse_proxy athenas:3000
+    handle_path /__design-system/* {
+        reverse_proxy design-system:80
+    }
+    handle {
+        reverse_proxy athenas:3000
+    }
 }
 
 https://athenas.farmacia.local {
     import devTls
-    reverse_proxy athenas:3000
+    handle_path /__design-system/* {
+        reverse_proxy design-system:80
+    }
+    handle {
+        reverse_proxy athenas:3000
+    }
 }
 
 http://stagemanager.farmacia.local {

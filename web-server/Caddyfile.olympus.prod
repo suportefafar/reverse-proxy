@@ -100,7 +100,12 @@ athenas.farmacia.ufmg.br {
     import tlsConfig
     import securityHeaders
     import siteLogs athenas
-    reverse_proxy athenas:3000
+    handle_path /__design-system/* {
+        reverse_proxy design-system:80
+    }
+    handle {
+        reverse_proxy athenas:3000
+    }
 }
 
 chatrapido.farmacia.ufmg.br, c.farmacia.ufmg.br {
