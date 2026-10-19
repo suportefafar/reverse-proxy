@@ -68,8 +68,9 @@ containers de aplicação em `prod.farmacia.ufmg.br`, use
 `web-server/Caddyfile.production-external`. Esse arquivo encaminha para os
 ports publicados no IP interno `10.10.10.2` (8001, 8002, 8008 e 8010); o
 `web-server/Caddyfile` padrão continua destinado ao proxy na mesma rede Docker
-dos serviços. Mantenha os mapeamentos em `services-infra/compose.prod.yaml`
-sincronizados com essa configuração.
+dos serviços. Essa configuração externa descreve a stack legada `services-infra`.
+Na stack atual do Olympus, use os arquivos `compose.olympus.*` e
+`web-server/Caddyfile.olympus.*`, conforme a integração descrita acima.
 
 Para garantir a melhor performance e compatibilidade, recomenda-se:
 

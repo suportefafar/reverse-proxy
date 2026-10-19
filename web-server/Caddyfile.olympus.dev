@@ -15,13 +15,13 @@ http://intranet.farmacia.local {
     reverse_proxy intranet-website:80
 }
 
+http://intranet-stage.farmacia.local {
+    reverse_proxy intranet:80
+}
+
 https://intranet.farmacia.local {
     import devTls
     reverse_proxy intranet-website:80
-}
-
-http://intranet-stage.farmacia.local {
-    reverse_proxy intranet:80
 }
 
 https://intranet-stage.farmacia.local {
@@ -104,6 +104,15 @@ https://ciclum.farmacia.local {
     handle {
         reverse_proxy ciclum:3000
     }
+}
+
+http://athenas.farmacia.local {
+    reverse_proxy athenas:3000
+}
+
+https://athenas.farmacia.local {
+    import devTls
+    reverse_proxy athenas:3000
 }
 
 http://stagemanager.farmacia.local {

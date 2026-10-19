@@ -1,6 +1,6 @@
 # Standalone production proxy on reverse-proxy.farmacia.ufmg.br.
 # Backends are published on prod.farmacia.ufmg.br (10.10.10.2), not on
-# this container's Docker network. Keep in sync with services-infra/compose.prod.yaml.
+# this container's Docker network. Legacy stack only; Olympus uses Caddyfile.olympus.*.
 
 # IP Definitions
 (devClientsIp) {
