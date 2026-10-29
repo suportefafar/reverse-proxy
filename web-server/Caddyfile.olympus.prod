@@ -3,6 +3,10 @@
 }
 
 (securityHeaders) {
+    @privateMetadata path_regexp privateMetadata (?i)(^|/)\.(git|hg|svn|env)([./]|$)
+    respond @privateMetadata 404
+    @privateConfiguration path_regexp privateConfiguration (?i)(^|/)(wp-config\.php|\.htaccess)([.~_-].*|$)
+    respond @privateConfiguration 404
     header {
         Strict-Transport-Security "max-age=31536000"
         X-Content-Type-Options "nosniff"
